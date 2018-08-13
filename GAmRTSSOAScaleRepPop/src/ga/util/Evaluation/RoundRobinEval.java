@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ga.model.Chromosome;
+import ga.model.ChromosomeValue;
 import ga.model.Population;
 import model.EvalResult;
 import util.LeitorLog;
@@ -88,25 +89,26 @@ public class RoundRobinEval implements RatePopulation {
 
 		// identicar qual IA foi a vencedora
 		String IAWinner = "";
+		Integer idWinner = -1;
 		if (evalResult.getEvaluation() == 0) {
 			IAWinner = evalResult.getIA1();
+			idWinner = evalResult.getIdIA1();
 		} else {
 			IAWinner = evalResult.getIA2();
+			idWinner = evalResult.getIdIA2();
 		}
 
 		// buscar na população a IA compatível.
-		Chromosome chrUpdate = null;
-		for (Chromosome ch : pop.getChromosomes().keySet()) {
-			if (convertBasicTuple(ch).equals(IAWinner)) {
+		ChromosomeValue chrUpdate = null;
+		for (ChromosomeValue ch : pop.getChromosomes()) {
+			if (ch.getID() == idWinner) {
 				chrUpdate = ch;
 			}
 		}
 		// atualizar valores.
-		BigDecimal toUpdate = pop.getChromosomes().get(chrUpdate);
+		BigDecimal toUpdate = chrUpdate.getValue();
 		if (toUpdate != null) {
-			toUpdate = toUpdate.add(BigDecimal.ONE);
-			HashMap<Chromosome, BigDecimal> chrTemp = pop.getChromosomes();
-			chrTemp.put(chrUpdate, toUpdate);
+			chrUpdate.updateValue();
 		} else {
 			System.out.println("Problem to find " + chrUpdate.toString());
 		}
@@ -265,16 +267,16 @@ public class RoundRobinEval implements RatePopulation {
 
 		for (int i = 0; i < TOTAL_PARTIDAS_ROUND; i++) {
 
-			for (Chromosome cIA1 : population.getChromosomes().keySet()) {
+			for (ChromosomeValue cIA1 : population.getChromosomes()) {
 
-				for (Chromosome cIA2 : population.getChromosomes().keySet()) {
-					if (!cIA1.equals(cIA2)) {
+				for (ChromosomeValue cIA2 : population.getChromosomes()) {
+					if (cIA1.getID() != cIA2.getID()) {
 						// System.out.println("IA1 = "+ convertTuple(cIA1)+ "
 						// IA2 = "+ convertTuple(cIA2));
 
 						// salvar arquivo na pasta log
-						String strConfig = pathCentral + "/" + convertBasicTuple(cIA1) + "#" + convertBasicTuple(cIA2)
-								+ "#" + i + "#" + atualGeneration + ".txt";
+						String strConfig = pathCentral + "/" + convertBasicTuple(cIA1.getCromo()) + "#" + convertBasicTuple(cIA2.getCromo())
+								+ "#" + i + "#" + atualGeneration +"#" +cIA1.getID()+"#"+cIA2.getID()+ ".txt";
 						File arqConfig = new File(strConfig);
 						if (!arqConfig.exists()) {
 							try {
@@ -289,8 +291,8 @@ public class RoundRobinEval implements RatePopulation {
 							FileWriter arq = new FileWriter(arqConfig, false);
 							PrintWriter gravarArq = new PrintWriter(arq);
 
-							gravarArq.println(convertBasicTuple(cIA1) + "#" + convertBasicTuple(cIA2) + "#" + i + "#"
-									+ atualGeneration);
+							gravarArq.println(convertBasicTuple(cIA1.getCromo()) + "#" + convertBasicTuple(cIA2.getCromo()) + "#" + i + "#"
+									+ atualGeneration+"#" + cIA1.getID()+"#"+cIA2.getID());
 
 							gravarArq.flush();
 							gravarArq.close();

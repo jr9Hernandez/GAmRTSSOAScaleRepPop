@@ -61,7 +61,7 @@ public class Selection {
 		chromosomesNewPopulation.putAll(elite);
 		//System.out.println("printing complete new population (elite+new population)");
 		//printMap(chromosomesNewPopulation);
-		newPopulation.setChromosomes(chromosomesNewPopulation);
+		newPopulation.addAllCromossomes(chromosomesNewPopulation);
 		
 		//if the number of the new pop is less than the initial pop, fill with random elements
 		newPopulation=fillWithRandom(newPopulation);
@@ -96,6 +96,7 @@ public class Selection {
 	}
 	public Population fillWithRandom(Population p)
 	{
+		Integer id = 0;
 		while(p.getChromosomes().size()<ConfigurationsGA.SIZE_POPULATION)
 		{
 			Chromosome tChom = new Chromosome();
@@ -103,7 +104,7 @@ public class Selection {
 			for (int j = 0; j < sizeCh; j++) {
 				tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
 			}
-			p.getChromosomes().put(tChom, BigDecimal.ZERO);			
+			p.addChromosome(tChom);;			
 		}
 		return p;
 	}

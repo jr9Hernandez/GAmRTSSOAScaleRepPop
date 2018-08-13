@@ -70,9 +70,18 @@ public class LeitorLog {
 						String item = linha.replace("Tupla A1 =", "");
 						tResult.setIA1(item.trim());
 					}
+					if(linha.startsWith("ID A1 =")){
+						String item = linha.replace("ID A1 =", "");
+						tResult.setIdIA1(Integer.decode(item.trim()));
+					}
+					
 					if(linha.startsWith("Tupla A2 =")){
 						String item = linha.replace("Tupla A2 =", "");
 						tResult.setIA2(item.trim());
+					}
+					if(linha.startsWith("ID A2 =")){
+						String item = linha.replace("ID A2 =", "");
+						tResult.setIdIA2(Integer.decode(item.trim()));
 					}
 					if(linha.startsWith("Winner")){
 						String item = linha.replace("Winner", "").trim();

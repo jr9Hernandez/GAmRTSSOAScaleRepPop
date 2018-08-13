@@ -181,7 +181,7 @@ public class Reproduction {
 	{
 		//This method replace each gene with a random script with a probability of 10%
 		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : p.getChromosomes().keySet()){
+		for(Chromosome c : p.getListChromosome()){
 
 			Chromosome newCh=new Chromosome();
 			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
@@ -197,14 +197,15 @@ public class Reproduction {
 			}
 			chromosomesMutated.put(newCh, BigDecimal.ZERO);
 		}
-		p.setChromosomes(chromosomesMutated);
+		
+		p.addAllCromossomes(chromosomesMutated);
 		return p;
 	}
 	
 	public static Population IncreasePopulation(Population pop){
 
 		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : pop.getChromosomes().keySet()){
+		for(Chromosome c : pop.getListChromosome()){
 
 			Chromosome newCh=new Chromosome();
 			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
@@ -223,7 +224,7 @@ public class Reproduction {
 			
 			chromosomesMutated.put(origCh, BigDecimal.ZERO);
 		}
-		pop.setChromosomes(chromosomesMutated);
+		pop.addAllCromossomes(chromosomesMutated);
 		return pop;
 		
 	}
@@ -231,7 +232,7 @@ public class Reproduction {
 	public static Population DecreasePopulation(Population pop){
 
 		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : pop.getChromosomes().keySet()){
+		for(Chromosome c : pop.getListChromosome()){
 
 			Chromosome newCh=new Chromosome();
 			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
@@ -250,7 +251,7 @@ public class Reproduction {
 			
 			chromosomesMutated.put(origCh, BigDecimal.ZERO);
 		}
-		pop.setChromosomes(chromosomesMutated);
+		pop.addAllCromossomes(chromosomesMutated);
 		return pop;
 		
 	}
@@ -259,7 +260,7 @@ public class Reproduction {
 		
 		//This method replace each gene with a random script with a probability of 10%
 		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : p.getChromosomes().keySet()){
+		for(Chromosome c : p.getListChromosome()){
 
 			Chromosome newCh=new Chromosome();
 			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
@@ -291,7 +292,7 @@ public class Reproduction {
 			}			
 			
 		}
-		p.setChromosomes(chromosomesMutated);
+		p.addAllCromossomes(chromosomesMutated);
 		return p;
 		
 	}
