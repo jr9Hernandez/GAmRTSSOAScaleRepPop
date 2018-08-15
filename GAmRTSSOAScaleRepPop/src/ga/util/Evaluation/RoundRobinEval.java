@@ -22,12 +22,10 @@ public class RoundRobinEval implements RatePopulation {
 	private static final int TOTAL_PARTIDAS_ROUND = 1;
 	private static final int BATCH_SIZE = 2;
 
-	// private static final String pathSOA =
-	// "/home/rubens/cluster/ExecAIGASOA/configSOA/";
+	 //private static final String pathSOA = "/home/rubens/cluster/GA_PGS_map8/configSOA/";
 	private static final String pathSOA = System.getProperty("user.dir").concat("/configSOA/");
 
-	// private static final String pathCentral =
-	// "/home/rubens/cluster/ExecAIGASOA/centralSOA";
+	 //private static final String pathCentral ="/home/rubens/cluster/GA_PGS_map8/centralSOA";
 	private static final String pathCentral = System.getProperty("user.dir").concat("/centralSOA");
 
 	// Classes de informação
@@ -101,13 +99,13 @@ public class RoundRobinEval implements RatePopulation {
 		// buscar na população a IA compatível.
 		ChromosomeValue chrUpdate = null;
 		for (ChromosomeValue ch : pop.getChromosomes()) {
-			if (ch.getID() == idWinner) {
+			if (ch.getID().equals(idWinner)) {
 				chrUpdate = ch;
 			}
 		}
 		// atualizar valores.
-		BigDecimal toUpdate = chrUpdate.getValue();
-		if (toUpdate != null) {
+		//BigDecimal toUpdate = chrUpdate.getValue();
+		if (chrUpdate != null) {
 			chrUpdate.updateValue();
 		} else {
 			System.out.println("Problem to find " + chrUpdate.toString());
