@@ -37,10 +37,10 @@ public class Population {
 		Chromosomes = chromosomes;
 	}
 	
-	public void addAllCromossomes(HashMap<Chromosome, BigDecimal> chromosomes){
+	public void addAllCromossomes(ArrayList<ChromosomeValue> chromosomes){
 		this.Chromosomes = new ArrayList<>();
-		for(Chromosome c : chromosomes.keySet()){
-			addChromosome(c);
+		for(ChromosomeValue c : chromosomes){
+			addChromosome(c.getCromo());
 		}
 	}
 	
@@ -128,6 +128,7 @@ public class Population {
 		Population pop = new Population(newChromosomes);
 		return pop;
 	}
+
 	
 	public ArrayList<Chromosome> getListChromosome(){
 		ArrayList<Chromosome> nList = new ArrayList<>();

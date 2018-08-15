@@ -13,14 +13,15 @@ import java.util.Set;
 
 import ga.config.ConfigurationsGA;
 import ga.model.Chromosome;
+import ga.model.ChromosomeValue;
 import ga.model.Population;
 
 public class Reproduction {
 
 	static Random rand = new Random();
 
-	List<Map.Entry<Chromosome, BigDecimal>> parents;
-	public Reproduction(List<Map.Entry<Chromosome, BigDecimal>> parents)
+	List<ChromosomeValue> parents;
+	public Reproduction(List<ChromosomeValue> parents)
 	{
 		this.parents=parents;
 	}
@@ -32,8 +33,8 @@ public class Reproduction {
 		{
 			//here we shuffle the list of parents in order to select always two different parents to reproduce
 			Collections.shuffle(parents);
-			Chromosome parent1=parents.get(0).getKey();
-			Chromosome parent2=parents.get(1).getKey();
+			Chromosome parent1=parents.get(0).getCromo();
+			Chromosome parent2=parents.get(1).getCromo();
 			Chromosome child= new Chromosome();
 
 			//The uniform crossover add to the son one of the parents gene for each position (selected randomly)
@@ -85,8 +86,8 @@ public class Reproduction {
 		{
 			//here we shuffle the list of parents in order to select always two different parents to reproduce
 			Collections.shuffle(parents);
-			Chromosome parent1=parents.get(0).getKey();
-			Chromosome parent2=parents.get(1).getKey();
+			Chromosome parent1=parents.get(0).getCromo();
+			Chromosome parent2=parents.get(1).getCromo();
 			Chromosome child1= new Chromosome();
 			Chromosome child2= new Chromosome();
 
@@ -180,11 +181,11 @@ public class Reproduction {
 	public Population mutation(Population p)
 	{
 		//This method replace each gene with a random script with a probability of 10%
-		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : p.getListChromosome()){
+		ArrayList<ChromosomeValue> chromosomesMutated = new ArrayList<ChromosomeValue>();
+		for(ChromosomeValue c : p.getChromosomes()){
 
 			Chromosome newCh=new Chromosome();
-			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+			newCh.setGenes((ArrayList<Integer>) c.getCromo().getGenes().clone());
 			for(int i=0; i<newCh.getGenes().size();i++)
 			{
 				double mutatePercent = ConfigurationsGA.MUTATION_RATE;
@@ -195,107 +196,107 @@ public class Reproduction {
 					newCh.getGenes().set(i, rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
 				}
 			}
-			chromosomesMutated.put(newCh, BigDecimal.ZERO);
+			chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
 		}
 		
 		p.addAllCromossomes(chromosomesMutated);
 		return p;
 	}
 	
-	public static Population IncreasePopulation(Population pop){
-
-		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : pop.getListChromosome()){
-
-			Chromosome newCh=new Chromosome();
-			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-			Chromosome origCh=new Chromosome();
-			origCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-
-			double IncreasePercent = ConfigurationsGA.INCREASING_RATE;
-			boolean m = rand.nextFloat() <= IncreasePercent;
-
-			if(m)
-			{
-				//newCh.getGenes().set(i, rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-				newCh.getGenes().add(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-				chromosomesMutated.put(newCh, BigDecimal.ZERO);
-			}
-			
-			chromosomesMutated.put(origCh, BigDecimal.ZERO);
-		}
-		pop.addAllCromossomes(chromosomesMutated);
-		return pop;
-		
-	}
+//	public static Population IncreasePopulation(Population pop){
+//
+//		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
+//		for(Chromosome c : pop.getListChromosome()){
+//
+//			Chromosome newCh=new Chromosome();
+//			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+//			Chromosome origCh=new Chromosome();
+//			origCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+//
+//			double IncreasePercent = ConfigurationsGA.INCREASING_RATE;
+//			boolean m = rand.nextFloat() <= IncreasePercent;
+//
+//			if(m)
+//			{
+//				//newCh.getGenes().set(i, rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+//				newCh.getGenes().add(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+//				chromosomesMutated.put(newCh, BigDecimal.ZERO);
+//			}
+//			
+//			chromosomesMutated.put(origCh, BigDecimal.ZERO);
+//		}
+//		pop.addAllCromossomes(chromosomesMutated);
+//		return pop;
+//		
+//	}
 	
-	public static Population DecreasePopulation(Population pop){
-
-		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : pop.getListChromosome()){
-
-			Chromosome newCh=new Chromosome();
-			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-			Chromosome origCh=new Chromosome();
-			origCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-
-			double decreasePercent = ConfigurationsGA.DECREASING_RATE;
-			boolean m = rand.nextFloat() <= decreasePercent;
-
-			if(m && newCh.getGenes().size()>=2)
-			{
-				//newCh.getGenes().set(i, rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-				newCh.getGenes().remove(rand.nextInt(newCh.getGenes().size()));
-				chromosomesMutated.put(newCh, BigDecimal.ZERO);
-			}
-			
-			chromosomesMutated.put(origCh, BigDecimal.ZERO);
-		}
-		pop.addAllCromossomes(chromosomesMutated);
-		return pop;
-		
-	}
+//	public static Population DecreasePopulation(Population pop){
+//
+//		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
+//		for(Chromosome c : pop.getListChromosome()){
+//
+//			Chromosome newCh=new Chromosome();
+//			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+//			Chromosome origCh=new Chromosome();
+//			origCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+//
+//			double decreasePercent = ConfigurationsGA.DECREASING_RATE;
+//			boolean m = rand.nextFloat() <= decreasePercent;
+//
+//			if(m && newCh.getGenes().size()>=2)
+//			{
+//				//newCh.getGenes().set(i, rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+//				newCh.getGenes().remove(rand.nextInt(newCh.getGenes().size()));
+//				chromosomesMutated.put(newCh, BigDecimal.ZERO);
+//			}
+//			
+//			chromosomesMutated.put(origCh, BigDecimal.ZERO);
+//		}
+//		pop.addAllCromossomes(chromosomesMutated);
+//		return pop;
+//		
+//	}
 	
-	public static Population RemoveCopies(Population p){ 
-		
-		//This method replace each gene with a random script with a probability of 10%
-		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-		for(Chromosome c : p.getListChromosome()){
-
-			Chromosome newCh=new Chromosome();
-			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-			// The next code block is for removing duplicates in the cromosome.
-			//List<String> al = new ArrayList<>();
-			// add elements to al, including duplicates
-			
-			newCh.setGenes(new ArrayList<Integer>(new LinkedHashSet<Integer>(newCh.getGenes())));
-//			Set<Integer> hs = new HashSet<>();
-//			hs.addAll(newCh.getGenes());
-//			newCh.getGenes().clear();
-//			newCh.getGenes().addAll(hs);	
-			
-			//The next method is just for avoiding infinite loops, adding a random element if
-			//one with the same key was already added (this can happen because sometimes the resulting
-			//element has the same KEY, and produce that the size of the map be always the same) 
-			if(chromosomesMutated.containsKey(newCh))
-			{
-				Chromosome tChom = new Chromosome();
-				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
-				for (int j = 0; j < sizeCh; j++) {
-					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-				}
-				chromosomesMutated.put(tChom, BigDecimal.ZERO);
-			}
-			else
-			{
-				chromosomesMutated.put(newCh, BigDecimal.ZERO);
-			}			
-			
-		}
-		p.addAllCromossomes(chromosomesMutated);
-		return p;
-		
-	}
+//	public static Population RemoveCopies(Population p){ 
+//		
+//		//This method replace each gene with a random script with a probability of 10%
+//		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
+//		for(Chromosome c : p.getListChromosome()){
+//
+//			Chromosome newCh=new Chromosome();
+//			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
+//			// The next code block is for removing duplicates in the cromosome.
+//			//List<String> al = new ArrayList<>();
+//			// add elements to al, including duplicates
+//			
+//			newCh.setGenes(new ArrayList<Integer>(new LinkedHashSet<Integer>(newCh.getGenes())));
+////			Set<Integer> hs = new HashSet<>();
+////			hs.addAll(newCh.getGenes());
+////			newCh.getGenes().clear();
+////			newCh.getGenes().addAll(hs);	
+//			
+//			//The next method is just for avoiding infinite loops, adding a random element if
+//			//one with the same key was already added (this can happen because sometimes the resulting
+//			//element has the same KEY, and produce that the size of the map be always the same) 
+//			if(chromosomesMutated.containsKey(newCh))
+//			{
+//				Chromosome tChom = new Chromosome();
+//				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
+//				for (int j = 0; j < sizeCh; j++) {
+//					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+//				}
+//				chromosomesMutated.put(tChom, BigDecimal.ZERO);
+//			}
+//			else
+//			{
+//				chromosomesMutated.put(newCh, BigDecimal.ZERO);
+//			}			
+//			
+//		}
+//		p.addAllCromossomes(chromosomesMutated);
+//		return p;
+//		
+//	}
 
 
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import ga.config.ConfigurationsGA;
 import ga.model.Chromosome;
+import ga.model.ChromosomeValue;
 import ga.model.Population;
 
 public class PreSelection {
@@ -22,17 +23,17 @@ public class PreSelection {
 	{
 		this.p=p;
 	}
-	public List<Map.Entry<Chromosome, BigDecimal>> Tournament()
+	public List<ChromosomeValue> Tournament()
 	{
 		//we want to select some parents (list parents) from all the population (listCandidates)
 		int parentsAdded=0;
-		List<Map.Entry<Chromosome, BigDecimal>> listParents= new ArrayList();
-		List<Map.Entry<Chromosome, BigDecimal>> listCandidates = new ArrayList<Map.Entry<Chromosome, BigDecimal>>(p.getChromosomes().entrySet());
+		List<ChromosomeValue> listParents= new ArrayList();
+		List<ChromosomeValue> listCandidates = new ArrayList<ChromosomeValue>(p.getChromosomes());
 		while(parentsAdded<ConfigurationsGA.SIZE_PARENTSFORCROSSOVER)
 		{
 			//here we randomize the list in order to select k random elements for the tournament
 			Collections.shuffle(listCandidates);
-			Map.Entry<Chromosome, BigDecimal> best=null;
+			ChromosomeValue best=null;
 
 			for(int i=0; i<ConfigurationsGA.K_TOURNMENT; i++)
 			{
@@ -70,5 +71,16 @@ public class PreSelection {
 		return sortedHashMap;
 
 	}
+	
+    public ArrayList<ChromosomeValue> sortByValueList(ArrayList<ChromosomeValue> l) {
+    	
+    	ArrayList<ChromosomeValue> eliteL=new ArrayList<ChromosomeValue>();
+    	eliteL.addAll(l);
+    	Comparator<ChromosomeValue> feeComparator = (c1, c2) -> c1.getValue().compareTo(c2.getValue());
+    	eliteL.sort(Collections.reverseOrder(feeComparator));
+    	eliteL.subList(ConfigurationsGA.SIZE_ELITE,eliteL.size()).clear();
+    	return eliteL;
+
+    }
 
 }
