@@ -208,7 +208,7 @@ public class Reproduction {
 			chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
 		}
 		
-		p.addAllCromossomes(chromosomesMutated);
+		p.setChromosomes(chromosomesMutated);
 		return p;
 	}
 	
