@@ -17,12 +17,12 @@ public class Population {
 		this.Chromosomes = new ArrayList<>();
 	}
 	
-	public Population(HashMap<Chromosome, BigDecimal> chromosomes){
-		this.Chromosomes = new ArrayList<>();
-		for(Chromosome c : chromosomes.keySet()){
-			this.addChromosome(c);
-		}
-	}
+//	public Population(HashMap<Chromosome, BigDecimal> chromosomes){
+//		this.Chromosomes = new ArrayList<>();
+//		for(Chromosome c : chromosomes.keySet()){
+//			this.addChromosome(c);
+//		}
+//	}
 
 	public Population(ArrayList<ChromosomeValue> chromosomes) {
 		super();

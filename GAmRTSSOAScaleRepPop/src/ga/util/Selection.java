@@ -39,7 +39,7 @@ public class Selection {
 		//using crossover and mutation
 		Reproduction rp=new Reproduction(parents);
 		//Population newPopulation=rp.UniformCrossover();
-		Population newPopulation=rp.Crossover();
+		Population newPopulation=rp.Crossover(populacaoInicial.getChromosomes().size());
 		//System.out.println("printing the new population after crossover");
 		//printMap(newPopulation.getChromosomes());
 		newPopulation=rp.mutation(newPopulation);
