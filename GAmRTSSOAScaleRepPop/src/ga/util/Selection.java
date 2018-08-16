@@ -63,7 +63,7 @@ public class Selection {
 		chromosomesNewPopulation.addAll(elite);
 		//System.out.println("printing complete new population (elite+new population)");
 		//printMap(chromosomesNewPopulation);
-		newPopulation.addAllCromossomes(chromosomesNewPopulation);
+		newPopulation.setChromosomes(chromosomesNewPopulation);
 		
 		//if the number of the new pop is less than the initial pop, fill with random elements
 		newPopulation=fillWithRandom(newPopulation);
