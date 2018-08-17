@@ -177,11 +177,11 @@ public class Reproduction {
 //			newChromosomes.put(child1, BigDecimal.ZERO);
 //			newChromosomes.put(child2, BigDecimal.ZERO);
 			
-			
+			partialIdsCounter++;
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child1, BigDecimal.ZERO));
 			partialIdsCounter++;			
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child2, BigDecimal.ZERO));
-			partialIdsCounter++;
+			
 			
 		}
 		newGeneration=new Population(newChromosomes);
@@ -289,21 +289,21 @@ public class Reproduction {
 			//The next method is just for avoiding infinite loops, adding a random element if
 			//one with the same key was already added (this can happen because sometimes the resulting
 			//element has the same KEY, and produce that the size of the map be always the same) 
-			if(chromosomesMutated.contains(newCh))
-			{
-				Chromosome tChom = new Chromosome();
-				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
-				for (int j = 0; j < sizeCh; j++) {
-					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-				}
-				//chromosomesMutated.put(tChom, BigDecimal.ZERO);
-				chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
-			}
-			else
-			{
+//			if(chromosomesMutated.contains(newCh))
+//			{
+//				Chromosome tChom = new Chromosome();
+//				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
+//				for (int j = 0; j < sizeCh; j++) {
+//					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+//				}
+//				//chromosomesMutated.put(tChom, BigDecimal.ZERO);
+//				chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
+//			}
+//			else
+//			{
 				//chromosomesMutated.put(newCh, BigDecimal.ZERO);
 				chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
-			}			
+//			}			
 			
 		}
 		p.setChromosomes(chromosomesMutated);
