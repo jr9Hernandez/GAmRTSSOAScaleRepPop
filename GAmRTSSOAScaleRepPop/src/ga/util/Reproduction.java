@@ -306,7 +306,7 @@ public class Reproduction {
 			}			
 			
 		}
-		p.addAllCromossomes(chromosomesMutated);
+		p.setChromosomes(chromosomesMutated);
 		return p;
 		
 	}
