@@ -45,10 +45,10 @@ public class Population {
 	}
 	
 	public void addChromosome(Chromosome chromosome){
-		int id = rand.nextInt(500);
+		int id = rand.nextInt(5000);
 		//check if the id exist or not
 		while(idExist(id)){
-			id = rand.nextInt(500);
+			id = rand.nextInt(5000);
 		}
 		
 		ChromosomeValue tChrom = new ChromosomeValue(id, chromosome, BigDecimal.ZERO);

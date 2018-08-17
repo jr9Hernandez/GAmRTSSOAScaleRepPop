@@ -177,10 +177,12 @@ public class Reproduction {
 //			newChromosomes.put(child1, BigDecimal.ZERO);
 //			newChromosomes.put(child2, BigDecimal.ZERO);
 			
+			
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child1, BigDecimal.ZERO));
-			partialIdsCounter++;
+			partialIdsCounter++;			
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child2, BigDecimal.ZERO));
 			partialIdsCounter++;
+			
 		}
 		newGeneration=new Population(newChromosomes);
 		return newGeneration;
@@ -266,46 +268,48 @@ public class Reproduction {
 //		
 //	}
 	
-//	public static Population RemoveCopies(Population p){ 
-//		
-//		//This method replace each gene with a random script with a probability of 10%
-//		HashMap<Chromosome, BigDecimal> chromosomesMutated = new HashMap<>();
-//		for(Chromosome c : p.getListChromosome()){
-//
-//			Chromosome newCh=new Chromosome();
-//			newCh.setGenes((ArrayList<Integer>) c.getGenes().clone());
-//			// The next code block is for removing duplicates in the cromosome.
-//			//List<String> al = new ArrayList<>();
-//			// add elements to al, including duplicates
-//			
-//			newCh.setGenes(new ArrayList<Integer>(new LinkedHashSet<Integer>(newCh.getGenes())));
-////			Set<Integer> hs = new HashSet<>();
-////			hs.addAll(newCh.getGenes());
-////			newCh.getGenes().clear();
-////			newCh.getGenes().addAll(hs);	
-//			
-//			//The next method is just for avoiding infinite loops, adding a random element if
-//			//one with the same key was already added (this can happen because sometimes the resulting
-//			//element has the same KEY, and produce that the size of the map be always the same) 
-//			if(chromosomesMutated.containsKey(newCh))
-//			{
-//				Chromosome tChom = new Chromosome();
-//				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
-//				for (int j = 0; j < sizeCh; j++) {
-//					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
-//				}
-//				chromosomesMutated.put(tChom, BigDecimal.ZERO);
-//			}
-//			else
-//			{
-//				chromosomesMutated.put(newCh, BigDecimal.ZERO);
-//			}			
-//			
-//		}
-//		p.addAllCromossomes(chromosomesMutated);
-//		return p;
-//		
-//	}
+	public static Population RemoveCopies(Population p){ 
+		
+		//This method replace each gene with a random script with a probability of 10%
+		ArrayList<ChromosomeValue> chromosomesMutated = new ArrayList<ChromosomeValue>();
+		for(ChromosomeValue c : p.getChromosomes()){
+
+			Chromosome newCh=new Chromosome();
+			newCh.setGenes((ArrayList<Integer>) c.getCromo().getGenes().clone());
+			// The next code block is for removing duplicates in the cromosome.
+			//List<String> al = new ArrayList<>();
+			// add elements to al, including duplicates
+			
+			newCh.setGenes(new ArrayList<Integer>(new LinkedHashSet<Integer>(newCh.getGenes())));
+//			Set<Integer> hs = new HashSet<>();
+//			hs.addAll(newCh.getGenes());
+//			newCh.getGenes().clear();
+//			newCh.getGenes().addAll(hs);	
+			
+			//The next method is just for avoiding infinite loops, adding a random element if
+			//one with the same key was already added (this can happen because sometimes the resulting
+			//element has the same KEY, and produce that the size of the map be always the same) 
+			if(chromosomesMutated.contains(newCh))
+			{
+				Chromosome tChom = new Chromosome();
+				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
+				for (int j = 0; j < sizeCh; j++) {
+					tChom.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+				}
+				//chromosomesMutated.put(tChom, BigDecimal.ZERO);
+				chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
+			}
+			else
+			{
+				//chromosomesMutated.put(newCh, BigDecimal.ZERO);
+				chromosomesMutated.add(new ChromosomeValue(c.getID(), newCh, BigDecimal.ZERO));
+			}			
+			
+		}
+		p.addAllCromossomes(chromosomesMutated);
+		return p;
+		
+	}
 
 
 }

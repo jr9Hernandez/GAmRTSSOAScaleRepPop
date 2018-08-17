@@ -70,7 +70,7 @@ public class Selection {
 		//System.out.println("printing complete new population with new random elements If that's the case");
 		//printMap(chromosomesNewPopulation);
 
-		//newPopulation=rp.RemoveCopies(newPopulation);
+		newPopulation=rp.RemoveCopies(newPopulation);
 		
 		return newPopulation;
 	}
