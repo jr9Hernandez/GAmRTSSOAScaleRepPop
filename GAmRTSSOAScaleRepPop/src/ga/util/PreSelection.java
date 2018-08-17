@@ -80,7 +80,7 @@ public class PreSelection {
     	eliteL.sort(Collections.reverseOrder(feeComparator));
     	
     	ArrayList<ChromosomeValue> eliteL2 = new ArrayList<ChromosomeValue>(eliteL.subList(0,eliteL.size()));
-    	return eliteL;
+    	return eliteL2;
 
     }
 
