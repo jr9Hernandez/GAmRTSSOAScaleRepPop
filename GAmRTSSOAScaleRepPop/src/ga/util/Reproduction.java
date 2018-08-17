@@ -104,7 +104,7 @@ public class Reproduction {
 			
 			if(sizeParent1>1)
 			{
-				breakParent1=1+rand.nextInt(sizeParent1-1);
+				breakParent1=rand.nextInt(sizeParent1+1);
 			}
 			else
 			{
@@ -112,7 +112,7 @@ public class Reproduction {
 			}
 			if(sizeParent2>1)
 			{
-				breakParent2=1+rand.nextInt(sizeParent2-1);
+				breakParent2=rand.nextInt(sizeParent2+1);
 			}
 			else
 			{
