@@ -149,6 +149,22 @@ public class Reproduction {
 			
 			child2.getGenes().addAll(p2sub1);
 			child2.getGenes().addAll(p1sub2);
+			
+			if(child1.getGenes().size()==0)
+			{
+				
+				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
+				for (int j = 0; j < sizeCh; j++) {
+					child1.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+				}
+			}
+			if(child2.getGenes().size()==0)
+			{
+				int sizeCh=rand.nextInt(ConfigurationsGA.SIZE_CHROMOSOME)+1;
+				for (int j = 0; j < sizeCh; j++) {
+					child2.addGene(rand.nextInt(ConfigurationsGA.QTD_SCRIPTS));
+				}
+			}
 
 			//The next method is just for avoiding infinite loops, adding a random element if
 			//one with the same key was already added (this can happen because sometimes the resulting
