@@ -79,7 +79,7 @@ public class PreSelection {
     	Comparator<ChromosomeValue> feeComparator = (c1, c2) -> c1.getValue().compareTo(c2.getValue());
     	eliteL.sort(Collections.reverseOrder(feeComparator));
     	
-    	ArrayList<ChromosomeValue> eliteL2 = new ArrayList<ChromosomeValue>(eliteL.subList(0,eliteL.size()));
+    	ArrayList<ChromosomeValue> eliteL2 = new ArrayList<ChromosomeValue>(eliteL.subList(0,ConfigurationsGA.SIZE_ELITE));
     	return eliteL2;
 
     }
