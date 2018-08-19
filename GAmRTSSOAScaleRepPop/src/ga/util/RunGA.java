@@ -19,6 +19,8 @@ public class RunGA {
 	 * @param evalFunction Será a função de avaliação que desejamos utilizar
 	 */
 	public Population run(RatePopulation evalFunction){
+		
+		int idsPopulationControl=0;
 		//Fase 1 = gerar a população inicial 
 		population = Population.getInitialPopulation(ConfigurationsGA.SIZE_POPULATION);
 		
@@ -29,11 +31,13 @@ public class RunGA {
 		
 		resetControls();
 		//Fase 3 = critério de parada
+		idsPopulationControl=idsPopulationControl+ConfigurationsGA.SIZE_POPULATION+1;
 		while(continueProcess()){
+			
 			
 			//Fase 4 = Seleção (Aplicar Cruzamento e Mutação)
 			Selection selecao = new Selection();
-			population = selecao.applySelection(population);
+			population = selecao.applySelection(population,idsPopulationControl);
 			
 			//Repete-se Fase 2 = Avaliação da população
 			population = evalFunction.evalPopulation(population,this.generations);
@@ -43,6 +47,8 @@ public class RunGA {
 			
 			System.out.println("Log - Generation = "+ this.generations);
 			population.printWithValue();
+			
+			idsPopulationControl=idsPopulationControl+ConfigurationsGA.SIZE_POPULATION+2;
 		}
 		
 		return population;

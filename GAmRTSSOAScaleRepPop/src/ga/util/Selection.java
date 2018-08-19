@@ -23,7 +23,7 @@ public class Selection {
 	
 	static Random rand = new Random();
 	
-	public Population applySelection(Population populacaoInicial){
+	public Population applySelection(Population populacaoInicial, int idsControl){
 
 
 		//System.out.println("printing the initial population");
@@ -39,7 +39,7 @@ public class Selection {
 		//using crossover and mutation
 		Reproduction rp=new Reproduction(parents);
 		//Population newPopulation=rp.UniformCrossover();
-		Population newPopulation=rp.Crossover(populacaoInicial.getChromosomes().size());
+		Population newPopulation=rp.Crossover(idsControl);
 		//System.out.println("printing the new population after crossover");
 		//printMap(newPopulation.getChromosomes());
 		newPopulation=rp.mutation(newPopulation);

@@ -193,10 +193,11 @@ public class Reproduction {
 //			newChromosomes.put(child1, BigDecimal.ZERO);
 //			newChromosomes.put(child2, BigDecimal.ZERO);
 			
-			partialIdsCounter++;
+			
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child1, BigDecimal.ZERO));
 			partialIdsCounter++;			
 			newChromosomes.add(new ChromosomeValue(partialIdsCounter, child2, BigDecimal.ZERO));
+			partialIdsCounter++;
 			
 			
 		}
